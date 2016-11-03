@@ -1,0 +1,20 @@
+{
+  "name": "luoye-fe-gitbook",
+  "version": "1.0.0",
+  "description": "All luoye-fe gitbooks.",
+  "main": "index.js",
+  "scripts": {
+    "build": "node ./scripts/babel.js --file=build",
+    "publish": "node ./scripts/babel.js --file=publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luoye-fe/gitbook.git"
+  },
+  "author": "luoye <842891024@qq.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luoye-fe/gitbook/issues"
+  },
+  "homepage": "https://github.com/luoye-fe/gitbook#readme"
+}
