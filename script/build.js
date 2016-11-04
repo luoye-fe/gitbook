@@ -3,6 +3,7 @@ import path from 'path';
 import { exec } from 'child_process';
 
 import ora from 'ora';
+import inquirer from 'inquirer';
 
 import logger from './logger.js';
 
@@ -88,6 +89,7 @@ function generateIndexHTML() {
 		fs.writeFile(path.join(__dirname, '../dist/index.html'), template, (err) => {
 			if (err) {
 				logger.fatal(err);
+				reject();
 				return;
 			}
 			spinner.stop();
@@ -109,6 +111,7 @@ function build() {
 			exec(`gitbook build ${path.join(__dirname, '../src/', booksList[index])} ${path.join(__dirname, '../dist/', booksList[index])}`, (err, stdout, stderr) => {
 				if (err) {
 					logger.fatal(err);
+					reject();
 					return;
 				}
 				spinner.stop();
@@ -118,17 +121,44 @@ function build() {
 			})
 		}
 		loop();
-	});
-	
+	});	
 }
 
-analyseBook()
-	.then(() => {
-		return generateIndexHTML();
-	})
-	.then(() => {
-		return build();
-	})
-	.then(() => {
-		logger.success(`All succeed.`);
-	})
+function publish() {
+	let spinner = ora(`Pushing to github ...`).start();
+	return new Promise((resolve, reject) => {
+		exec('git subtree push --prefix=dist/ origin gh-pages', (err) => {
+			if (err) {
+				logger.fatal(err);
+				reject();
+				return;
+			}
+			spinner.stop();
+			logger.success(`Push to github succeed.`);
+			resolve();
+		})
+	});
+}
+
+inquirer.prompt([{
+	type: 'confirm',
+	name: 'publish',
+	message: 'push to gh-pages?',
+	default: false
+}]).then((answers) => {
+	analyseBook()
+		.then(() => {
+			return generateIndexHTML();
+		})
+		.then(() => {
+			return build();
+		})
+		.then(() => {
+			if (answers.publish) {
+				return publish();
+			}
+		})
+		.then(() => {
+			logger.success(`All succeed.`);
+		})
+});
