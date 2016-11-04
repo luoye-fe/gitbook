@@ -1,0 +1,19 @@
+{
+    "title": "绘事后素",
+    "description": "徐州工程学院人文学院13级优秀习作集",
+    "author": "Loye",
+    "language": "ch",
+    "plugins": ["-sharing", "fontsettings"],
+    "pluginsConfig": {
+        "fontsettings": {
+            "theme": "white",
+            "family": "sans",
+            "size": 2
+        }
+    },
+    "links": {
+        "sidebar": {
+
+        }
+    }
+}
