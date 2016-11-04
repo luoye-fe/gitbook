@@ -6,7 +6,8 @@
   "scripts": {
     "build": "node ./script/babel.js --file=build",
     "publish": "node ./script/babel.js --file=publish",
-    "serve": "node ./script/babel.js --file=serve"
+    "serve": "node ./script/babel.js --file=serve",
+    "generate": "node ./script/babel.js --file=generate"
   },
   "repository": {
     "type": "git",
@@ -24,8 +25,10 @@
     "babel-preset-latest": "^6.16.0",
     "chalk": "^1.1.3",
     "inquirer": "^1.2.2",
+    "js-beautify": "^1.6.4",
     "minimist": "^1.2.0",
     "ora": "^0.3.0",
+    "pinyin": "^2.8.0",
     "shelljs": "^0.7.5"
   }
 }
