@@ -127,7 +127,7 @@ function build() {
 function publish() {
 	let spinner = ora(`Pushing to github ...`).start();
 	return new Promise((resolve, reject) => {
-		exec('git subtree push --prefix=dist/ origin gh-pages', (err) => {
+		exec('git add . && git commit -am "Build for gh-pages" && git push origin master && git subtree push --prefix=dist/ origin gh-pages', (err) => {
 			if (err) {
 				logger.fatal(err);
 				reject();
